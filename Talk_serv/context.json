@@ -1,0 +1,48 @@
+{
+  "dependencies": {
+    "bearcat-dao": "*"
+  },
+  "scan": "app",
+  "beans": [
+    {
+      "id": "mysqlConnectionManager",
+      "func": "node_modules.bearcat-dao.lib.connection.sql.mysqlConnectionManager",
+      "props": [
+        {
+          "name": "port",
+          "value": "3306"
+        },
+        {
+          "name": "host",
+          "value": "localhost"
+        },
+        {
+          "name": "user",
+          "value": "root"
+        },
+        {
+          "name": "password",
+          "value": ""
+        },
+        {
+          "name": "database",
+          "value": "test"
+        }
+      ]
+    },
+    {
+      "id": "redisConnectionManager",
+      "func": "node_modules.bearcat-dao.lib.connection.cache.redisConnectionManager",
+      "props": [
+        {
+          "name": "port",
+          "value": "6379"
+        },
+        {
+          "name": "host",
+          "value": "localhost"
+        }
+      ]
+    }
+  ]
+}

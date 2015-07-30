@@ -1,0 +1,78 @@
+#!/usr/bin/env node
+
+var Logger = require('pomelo-logger');
+var logger = Logger.getLogger('bearcat-ha', 'CommandLine');
+var Cluster = require('../lib/watcher/watcherCluster');
+var Version = require('../package.json').version;
+var JSONC = require('json-comments');
+var program = require('commander');
+var fs = require('fs');
+
+function loadConfig(filename) {
+  var content = fs.readFileSync(filename, 'utf8');
+  var config = JSONC.parse(content);
+
+  if (!config.zooKeeper) {
+    throw new Error('zooKeeper can not be empty!');
+  }
+
+  if (!config.nodes) {
+    throw new Error('error: server nodes can not be empty!');
+  }
+
+  return config;
+}
+
+program
+  .version(Version)
+  .usage('-c config.json')
+  .option('-c, --config [path]', 'Path to JSON config file')
+  .parse(process.argv);
+
+
+if (!program.config) {
+  throw new Error('command error: No config file!');
+}
+
+var config = loadConfig(program.config);
+
+var type = "ha";
+if (config.type) {
+  type = config.type;
+}
+
+var log4js = null;
+var log4jsPath = 'log4js.json';
+
+if (fs.existsSync(log4jsPath)) {
+  log4js = fs.readFileSync(log4jsPath, 'utf8');
+  log4js = JSONC.parse(log4js);
+}
+
+if (config.log) {
+  // if log is a dir path
+  var logfile = config.log;
+  if (logfile.match(/\/$/)) {
+    logfile = logfile + type + '-cluster-' + process.pid + '.log';
+  }
+
+  if (!log4js) {
+    log4js = {
+      appenders: [{
+        type: 'console'
+      }, {
+        type: 'file',
+        filename: logfile,
+        maxLogSize: 300 * 1024 * 1024,
+        backups: 1
+      }],
+      replaceConsole: true,
+      lineDebug: true
+    };
+  }
+
+  Logger.configure(log4js);
+}
+
+// logger.info('start options: ', config);
+Cluster.setup(config);

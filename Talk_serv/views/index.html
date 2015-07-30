@@ -1,0 +1,128 @@
+<!doctype html>
+<html ng-app="MyApp">
+    <head>
+        <script src="src/jquery-2.1.4.min.js"></script>
+        <script src="src/socket.io.js"></script>
+        <style>
+            .login{
+                display: block;
+            }
+
+
+            .talkscene{
+                width: 600px;
+                height: 400px;
+                background: lightblue;
+                display: block;
+                -webkit-box-shadow:5px 10px 10px lightgrey;
+                float: left;
+            }
+
+            .friendlist{
+                margin-left: 30px;
+                width: 200px;
+                height: 400px;
+                background: lightcyan;
+                display: inline-block;
+                -webkit-box-shadow:5px 10px 10px lightgrey;
+            }
+
+            .typeinput{
+                width: 580px;
+                height: 30px;
+                border: 2px crimson;
+                display: block;
+                position: relative;
+                top: 10px;
+                left: 10px;
+                font-size: larger;
+                float: left;
+            }
+
+            .talkval {
+                top:5px;
+                display: inline-block;
+                height: 350px;
+                width: 580px;
+            }
+
+            .me{
+                float: left;
+                display: block;
+            }
+
+            .other{
+                float: right;
+            }
+
+        </style>
+        <script>
+            $(function(){
+                var socket;
+
+                $('.typeinput').hide();
+
+                $('.talkscene').hover(function(){
+                    $('.typeinput').val('');
+                    $('.typeinput').show();
+                },function(){
+                    $('.typeinput').hide();
+
+                });
+
+                $('.typeinput').bind('keypress',function(event){
+                    if(event.keyCode == '13'){
+                        if($('#topic').val() == ''){
+                            alert('please type the topic');
+                            return;
+                        }
+
+                        var text = "<p>"+$('.typeinput').val()+"</p>";
+                        socket.emit($('#topic').val(),$('.typeinput').val());
+                        $('.talkval').append(text);
+                        $('.typeinput').val('');
+                    }
+                });
+
+                $('#login').bind('click',function(){
+                    if($('#topic').val() == ''){
+                        alert('please type the topic');
+                        return;
+                    }
+
+                    alert($('#topic').val());
+                    socket = io("ws://localhost:3001")
+
+                    socket.on($('#topic').val(),function(data){
+                        var text = "<p>"+data+"<p/>";
+                        $('.talkval').append(text);
+                    });
+
+                    socket.on('start',function(data){
+                        alert(data);
+                        socket.emit('topic', $('#topic').val());
+                    })
+                })
+
+
+            })
+        </script>
+    </head>
+    <body>
+    <h1>Chat Room</h1>
+    <p>user:<input type="text" id="username"></p>
+    <p>pass:<input type="text" id="password"></p>
+    <p>topic:<input type="text" id="topic"></p>
+    <input type="button" id="login" value="login">
+    <p></p>
+    <div class="talkscene">
+        <input type="text" class="typeinput">
+        <div type="text" class="talkval" style="overflow: auto"></div>
+    </div>
+
+    <div class="friendlist">
+
+    </div>
+
+    </body>
+</html>
