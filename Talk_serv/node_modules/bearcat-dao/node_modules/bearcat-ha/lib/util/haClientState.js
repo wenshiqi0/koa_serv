@@ -1,0 +1,10 @@
+var HaClientState = {
+	STATE_INIT: 0,
+	STATE_TIMEOUT: 1,
+	STATE_RECONNECTING: 2,
+	STATE_CONNECTING: 3,
+	STATE_CONNECTED: 4,
+	STATE_READY: 5
+};
+
+module.exports = HaClientState;

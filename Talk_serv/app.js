@@ -37,23 +37,25 @@ app.use(logger());
 bearcat.createApp([contextPath]);
 bearcatDao.loadSQL([sqlDir]);
 
+/*
 var options = {
     key:fs.readFileSync(config.tlsOptions.key),
     cert:fs.readFileSync(config.tlsOptions.cert),
 }
+*/
 
 bearcat.start(function(){
     view(app);
     controller(app);
 
     var server  = http.Server(app.callback());
-    var serverS = https.Server(options,app.callback());
+   // var serverS = https.Server(options,app.callback());
     var io = require('socket.io')(server);
 
     chat(io);
 
     server.listen(config.Port);
-    serverS.listen(config.PortS);
+ //   serverS.listen(config.PortS);
 })
 
 

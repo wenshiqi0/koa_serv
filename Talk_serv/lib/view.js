@@ -4,7 +4,7 @@
 var fs = require('fs');
 var Promise = require('bluebird');
 var route = require('koa-route');
-var static_src = require('./static_src');
+var data = require('./data');
 
 module.exports = function(app){
     function next(str) {
@@ -13,7 +13,7 @@ module.exports = function(app){
             array = name.split('.');
             if (name.indexOf('.') > -1) {
                 name = str + '/' +name;
-                app.use(route.get(name.substr(7),static_src(name,array[1])))
+                app.use(route.get(name.substr(7),data(name,array[1])))
             }else{
                 next(str+'/'+name);
             }

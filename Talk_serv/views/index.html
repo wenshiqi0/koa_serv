@@ -1,14 +1,12 @@
 <!doctype html>
 <html ng-app="MyApp">
     <head>
-        <script src="src/jquery-2.1.4.min.js"></script>
-        <script src="src/socket.io.js"></script>
+        <script src="static/jquery-2.1.4.min.js"></script>
+        <script src="static/socket.io.js"></script>
         <style>
             .login{
                 display: block;
             }
-
-
             .talkscene{
                 width: 600px;
                 height: 400px;
@@ -17,7 +15,6 @@
                 -webkit-box-shadow:5px 10px 10px lightgrey;
                 float: left;
             }
-
             .friendlist{
                 margin-left: 30px;
                 width: 200px;
@@ -38,7 +35,6 @@
                 font-size: larger;
                 float: left;
             }
-
             .talkval {
                 top:5px;
                 display: inline-block;
@@ -54,7 +50,6 @@
             .other{
                 float: right;
             }
-
         </style>
         <script>
             $(function(){
@@ -103,8 +98,6 @@
                         socket.emit('topic', $('#topic').val());
                     })
                 })
-
-
             })
         </script>
     </head>
