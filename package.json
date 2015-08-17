@@ -1,0 +1,34 @@
+{
+  "name": "application-name",
+  "version": "0.0.1",
+  "Timeout" :500,
+  "Port" :3001,
+  "PortS":3000,
+
+  "tlsOptions":{
+    "key":"./keys/server.key",
+    "cert":"./keys/server.crt",
+    "ca":"./keys/ca.crt"
+  },
+
+  "dependencies":{
+    "koa":"*",
+    "socket.io":"*",
+    "bearcat":"*",
+    "redis":"*",
+    "bearcat-dao":"*",
+    "koa-swig":"*",
+    "koa-static":"*",
+    "koa-logger":"*",
+    "koa-timeout":"*",
+    "koa-route":"*",
+    "co":"*",
+    "co-body":"*",
+    "bluebird":"*",
+    "react":"*",
+    "gulp-react":"*",
+    "gulp-uglify":"*",
+    "gulp-browserify":"*",
+    "sticky-session":"*"
+  }
+}
