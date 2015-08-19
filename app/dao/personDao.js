@@ -48,7 +48,6 @@ PersonDao.prototype.getByName = function(name,cb){
 
 PersonDao.prototype.addTopic = function(name,tid,cb){
     var sql = ''
-
 }
 
 

@@ -15,7 +15,7 @@ var test = {
     fetch:function*(id){
         try{
             var service = bearcat.getBean('hobbyService');
-            var res = yield service.getByPersonName(id);
+            var res = yield service.getByPersonName(id.substr(1));
             console.log(res[0].model);
             this.body = res[0].model;
         }catch(e){

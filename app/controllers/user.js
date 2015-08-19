@@ -15,11 +15,11 @@ var test = {
     fetch:function*(id){
         try{
             var service = bearcat.getBean('personService');
-            var res = yield service.getByName(id);
-            console.log(res[0].model);
+            var res = yield service.getByName(id.substr(1));
+            this.type = 'application/json';
             this.body = res[0].model;
         }catch(e){
-            console.error(e);
+            throw e;
         }finally{
 
         }
@@ -32,9 +32,9 @@ var test = {
     },
     add:function*(){
         try{
-            console.log(this.session);
             var post = yield parse(this);
             var service = bearcat.getBean('personService');
+            console.log(service);
             var res = yield service.getByName(post.name);
             if(!res[0]) {
                 this.res.statusCode = 204;
@@ -46,7 +46,7 @@ var test = {
             }
             this.res.statusCode = 404;
         }catch(e){
-            console.log(e);
+            throw e;
         }
     }
 }

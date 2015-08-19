@@ -95,6 +95,7 @@ co(function*(){
 * koa中对异步的流程控制都是使用的generator,所以要想加入异步流程就需要这种方式来管理异步方法
 * demo中对bearcat和redis都使用了这种处理
 * 建议不要将这种Promise转generator的处理过分暴露在逻辑代码里面，会使得代码相当臃肿
+* 觉得bluebird太大，而使用功能并不多的情况，可以尝试我重写的fromNode方法，这个方法是使用的native promise，在github下面的另外一个项目中
 
 ##Session
 <p>
@@ -108,12 +109,12 @@ koa-timeout是服务器中使用的一个超时中间件，外部访问时间超
 
 ##页面
 <p>
-目前使用的是swig模版，但是实际上目前也没有使用，因为我主要是关注ios和webapp开发的，我目前在学习react，后续可能会把模版换为jax重写一个页面
+实现动态分离了之后，需要将静态文件放在/public/static文件夹下面，可以使用CDN将static分发出去，在/public/views文件夹下面的是动态渲染的html，目前使用的是swig模版渲染，另外加入了react和material-ui，可以使用gulp构建的命令来编译和链接jsx文件，输出一个页面的main.js
 </p>
 
 ##聊天服务
 <p>
-聊天服务时使用的socket.io，这个可以实现了根据不同话题可以创建出不同聊天室，还是比较简易的实现
+聊天服务时使用的socket.io，这个可以实现了根据不同话题可以创建出不同聊天室，还是比较简易的实现，加入sticky-session从而实现了socket.io的会话保持，使得服务器可以由单线程变为了多线程
 </P>
 
 ##扩展

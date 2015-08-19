@@ -1,0 +1,10 @@
+CREATE TABLE `test`.`person` (
+  `id` INT NOT NULL COMMENT '',
+  `name` VARCHAR(45) NULL COMMENT '',
+  `pass` VARCHAR(45) NULL COMMENT '',
+  PRIMARY KEY (`id`)  COMMENT '');
+
+CREATE TABLE `test`.`idgenerator` (
+  `name` VARCHAR(30) NOT NULL COMMENT '',
+  `id` BIGINT UNSIGNED NOT NULL DEFAULT 0 COMMENT '',
+  PRIMARY KEY (`name`)  COMMENT '');

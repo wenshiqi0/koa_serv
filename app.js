@@ -49,12 +49,12 @@ var options = {
 bearcat.start(function(){
     sticky(function(){
         view(app);
-        app.use(require('koa-static')('./public/static'));
         controller(app);
+        app.use(require('koa-static')('./public/static'));
         var server  = http.createServer(app.callback());
         var io = require('socket.io')(server);
         chat(io);
-        return server
+        return server;
     }).listen(config.Port);
 })
 

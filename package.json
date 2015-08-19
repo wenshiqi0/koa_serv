@@ -29,6 +29,8 @@
     "gulp-react":"*",
     "gulp-uglify":"*",
     "gulp-browserify":"*",
-    "sticky-session":"*"
+    "sticky-session":"*",
+    "request":"*",
+    "should":"*"
   }
 }
